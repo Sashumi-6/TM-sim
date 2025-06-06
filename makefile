@@ -1,3 +1,6 @@
+run: main.exe
+	./$?
+
 main.exe: file-main
 	g++ $(wildcard *.cpp) -o $@
 
