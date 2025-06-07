@@ -9,7 +9,6 @@ class tape {
         tapeCell *R, *L;
         char* cellSymbol;
 
-    public:
         //Defined such that we can automatically add a *R and *L in case => removes one step (PDA Theory)
         tapeCell(const char& symbol, tapeCell *L = nullptr, tapeCell *R = nullptr)
         : cellSymbol(new char(symbol)), L(L), R(R) {}
@@ -68,7 +67,7 @@ public:
     }
 
     void updateCell(const char &update) {
-        head->getSymbol() = update;
+        *(head->cellSymbol) = update;
     }
 
 };
