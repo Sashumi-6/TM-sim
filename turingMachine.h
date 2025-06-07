@@ -13,11 +13,13 @@
 
 class TM {
     int tapeCount;
-    char state;
     tape **tapes;
+    std::string *instructions;
+    char baseStates[3];
+    char currentState;
 
 public:
-    TM(const char* input, int &tapeCount) {
+    TM(const char* input, int &tapeCount) : instructions(nullptr) {
         this->tapeCount = (tapeCount <= 0) ? 1 : tapeCount;
         tapes = new tape*[tapeCount];
 
@@ -25,6 +27,8 @@ public:
             if (i == 0) tapes[i] = new tape(input);
             else tapes[i] = new tape();
         }
+
+        currentState = '\0';
     }
 
     ~TM() {
@@ -43,7 +47,27 @@ public:
 
     void readInstructions(std::string filename) {
         std::fstream fs(filename.c_str());
+        if (fs.eof()) assert("Please insert instructions");
+        std::stringstream ss;
+        std::string line;
 
+        std::getline(fs, line, '|');
+        currentState = baseStates[0] = line[0]; //initial
+        std::getline(fs, line, '|');
+        baseStates[1] = line[0]; //accept
+        std::getline(fs, line, '|');
+        baseStates[2] = line[0]; //halt
+
+        int count = 0;
+        for (line = "" ; std::getline(fs, line) ; line = "") {
+            ss << line;
+            count++;
+        }
+
+        instructions = new std::string[count];
+        for (int i = 0 ; i < count ; i++) {
+            ss >> instructions[i];
+        }
     }
 
     std::string printTapeN(int n) {
