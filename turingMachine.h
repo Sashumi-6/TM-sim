@@ -106,6 +106,7 @@ public:
             delete tapes[i];
         }
         delete[] tapes;
+        delete[] instructions;
     }
 
     // instructions is the instructions.txt file
