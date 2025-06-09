@@ -71,9 +71,8 @@ public:
         }
     }
 
-    void updateCell(const char &update) {
-        *(head->cellSymbol) = update;
-    }
+    void updateCell(const char &update) { *(head->cellSymbol) = update; }
+    const char& getCurrentSymbol() { return *(head->cellSymbol); }
 
     std::string printTape() {
         std::stringstream ss;
