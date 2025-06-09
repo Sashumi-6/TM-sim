@@ -33,3 +33,6 @@
 
 #valgrind
 *.log
+
+#stupid vs code
+.vscode
