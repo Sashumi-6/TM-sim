@@ -5,7 +5,7 @@
 #include <sstream>
 #define sout std::cout
 #define send std::endl
-#define __emptycell '\0'
+#define __emptycell '_'
 
 
 class tape {
