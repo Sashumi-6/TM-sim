@@ -1,6 +1,10 @@
 #ifndef TAPE_H
 #define TAPE_H
 
+#include <iostream>
+#include <sstream>
+#define sout std::cout
+#define send std::endl
 #define __emptycell '\0'
 
 
@@ -26,14 +30,15 @@ class tape {
 
 public:
     tape(const char* input) {
-        head = new tapeCell(*input++, new tapeCell(__emptycell, nullptr, head));
+        head = new tapeCell(*input++);
         tapeCell *linkCreate = head;
         while (*input != '\0') {
             linkCreate->R = new tapeCell(*input++, linkCreate);
             linkCreate = linkCreate->R;
         }
-        linkCreate->R = new tapeCell(__emptycell, linkCreate);
     }
+
+    tape() { head = new tapeCell(__emptycell); }
 
     ~tape() {
         // Take the head all the way to the left
@@ -68,6 +73,19 @@ public:
 
     void updateCell(const char &update) {
         *(head->cellSymbol) = update;
+    }
+
+    std::string printTape() {
+        std::stringstream ss;
+        tapeCell* tmp = head;
+        while (tmp->L) tmp = tmp->L; //get to left most
+
+        while (tmp) {
+            ss << '[' << *(tmp->cellSymbol) << ']';
+            tmp = tmp->R;
+        }
+
+        return ss.str();
     }
 
 };
