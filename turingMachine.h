@@ -7,7 +7,6 @@
 #include <iostream>
 #include "tape.h"
 
-#define accept '\a'
 #define sout std::cout
 #define send std::endl
 
