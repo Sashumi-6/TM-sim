@@ -57,7 +57,7 @@ public:
 
     // if you input anything other than L || R head will stay where it is.
     // This operator moves the head
-    void operator[](char d) {
+    void moveHead(char d) {
         switch (d) {
             case 'L':
                 if (!head->L) { head->L = new tapeCell(__emptycell, nullptr, head); }
