@@ -15,7 +15,7 @@ file-main:
 	touch main.cpp
 
 file-tm:
-	touch turingMachine.cpp
+	touch turingMachine.h
 
 file-tape:
-	touch tape.cpp
+	touch tape.h
