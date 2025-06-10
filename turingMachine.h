@@ -19,7 +19,7 @@ class TM {
     char baseStates[3];
     char currentState;
 
-    void readInstructions(std::string filename) {
+    void LoadInstructions(std::string filename) {
         std::fstream fs(filename.c_str());
         if (fs.eof()) assert("Please insert instructions");
         std::stringstream ss;
@@ -89,7 +89,7 @@ class TM {
     }
 
 public:
-    TM(const char* input, int &tapeCount) : instructions(nullptr) {
+    TM(const char* input, int &tapeCount, std::string filePath) : instructions(nullptr) {
         this->tapeCount = (tapeCount <= 0) ? 1 : tapeCount;
         tapes = new tape*[tapeCount];
 
@@ -99,6 +99,7 @@ public:
         }
 
         currentState = '\0'; // current state = null ie. havent set current state
+        LoadInstructions(filePath);
     }
 
     ~TM() {
@@ -110,12 +111,17 @@ public:
     }
 
     // instructions is the instructions.txt file
-    int execute(std::string instructions) {
-        readInstructions(instructions);
+    int execute() {
         while (currentState != baseStates[1] && currentState != baseStates[2]) {
             executeInstruction();
         }
 
+        if (currentState == baseStates[1]) return 1;
+        return 0;
+    }
+
+    int executeOneStep() {
+        executeInstruction();
         if (currentState == baseStates[1]) return 1;
         return 0;
     }
